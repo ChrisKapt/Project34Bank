@@ -1,0 +1,4 @@
+groupbank\App.class
+module-info.class
+groupbank\PrimaryController.class
+groupbank\SecondaryController.class

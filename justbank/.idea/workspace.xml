@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="28740618-2d3e-4354-98d3-625371552d07" name="Default Changelist" comment="" />
+    <list default="true" id="28740618-2d3e-4354-98d3-625371552d07" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bankfx.iml" beforeDir="false" afterPath="$PROJECT_DIR$/bankfx.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/groupbank/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/groupbank/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/groupbank/PrimaryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/groupbank/PrimaryController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/groupbank/SecondaryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/groupbank/SecondaryController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -10,30 +20,47 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
       <MavenImportingSettings>
         <option name="importAutomatically" value="true" />
+        <option name="jdkForImporter" value="13.0.2" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
       </MavenImportingSettings>
     </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="delegateBuildToMaven" value="true" />
   </component>
   <component name="ProjectId" id="1XyBfgnuYbi2Mu8l4brdj7PsWQX" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/cmder/vendor/git-for-windows/mingw64/libexec/git-core/git.exe" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.ignored.files" />
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn cmd" />
+      <command value="mvn.cmd" />
+      <command value="mvn java -version" />
+      <command value="mvn java - version" />
+      <command value="mvn version" />
+    </option>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -78,7 +105,12 @@
       <option name="presentableId" value="Default" />
       <updated>1581966629752</updated>
       <workItem from="1581966633814" duration="6630000" />
-      <workItem from="1582008587567" duration="36000" />
+      <workItem from="1582008587567" duration="935000" />
+      <workItem from="1582014597118" duration="1411000" />
+      <workItem from="1582198206255" duration="1427000" />
+      <workItem from="1582804844335" duration="2210000" />
+      <workItem from="1582807116523" duration="261000" />
+      <workItem from="1582807401537" duration="2724000" />
     </task>
     <servers />
   </component>
@@ -90,7 +122,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

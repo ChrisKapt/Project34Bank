@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="bankfx" target="11" />
+      <module name="bankfx" target="13" />
     </bytecodeTargetLevel>
   </component>
 </project>

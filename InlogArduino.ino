@@ -1,4 +1,5 @@
 //V1.0.11Bank
+//Dit is de master Arduino
 
 #include <MFRC522.h>
 #include <Keypad.h>

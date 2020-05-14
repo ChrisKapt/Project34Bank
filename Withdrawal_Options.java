@@ -3,7 +3,8 @@ package Gui;
 
 import javax.swing.*;
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class Withdrawal_Options extends JPanel {
@@ -47,7 +48,7 @@ public class Withdrawal_Options extends JPanel {
         biljet50.setBounds(1100, 525, 350, 100);
         biljet10.setBounds(75, 350, 350, 100);
         goBack.setBounds(75, 700, 70, 70);
-        close.setBounds(175, 700, 70, 70);
+        close.setBounds(1380, 700, 70, 70);
 
 
 
@@ -59,13 +60,33 @@ public class Withdrawal_Options extends JPanel {
         biljet20.setFont(new java.awt.Font("Arial", Font.BOLD, 25));
         biljet50.setFont(new java.awt.Font("Arial", Font.BOLD, 25));
         biljet10.setFont(new java.awt.Font("Arial", Font.BOLD, 25));
-
+        name.setForeground(Color.decode("#C0C0C0"));
         background.setOpaque(true);
-        background.setBackground(Color.decode("#b9f1fa"));
+        background.setBackground(Color.decode("#086DCD"));
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+
+
+        goBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                CashWithdrawl withdrawl1 = new CashWithdrawl();
+                withdrawl1.setVisible(true);
+                frame.setVisible(false);
+
+            }
+        });
+
+        close.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent close) {
+                HomeScreen home1 = new HomeScreen();
+                frame.setVisible(false);
+            }
+        });
+
 
 
 

@@ -48,7 +48,7 @@ public class CashWithdrawl extends JPanel {
         withdrawalCash.setBounds(1100, 525, 350, 100);
         balance.setBounds(75, 350, 350, 100);
         goBack.setBounds(75, 700, 70, 70);
-        close.setBounds(175, 700, 70, 70);
+        close.setBounds(1380, 700, 70, 70);
 
 
         //costumize component
@@ -56,9 +56,9 @@ public class CashWithdrawl extends JPanel {
         fastwithdrawal.setFont(new java.awt.Font("Arial", Font.BOLD, 25));
         withdrawalCash.setFont(new java.awt.Font("Arial", Font.BOLD, 25));
         balance.setFont(new java.awt.Font("Arial", Font.BOLD, 25));
-
+        name.setForeground(Color.decode("#C0C0C0"));
         background.setOpaque(true);
-        background.setBackground(Color.decode("#b9f1fa"));
+        background.setBackground(Color.decode("#086DCD"));
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -71,6 +71,8 @@ public class CashWithdrawl extends JPanel {
             public void actionPerformed(ActionEvent withdrawal) {
                 Withdrawal_Options withdrawal_options1 = new Withdrawal_Options();
                 withdrawal_options1.setVisible(true);
+                frame.setVisible(false);
+
             }
         });
 
@@ -79,14 +81,27 @@ public class CashWithdrawl extends JPanel {
             public void actionPerformed(ActionEvent withdrawal) {
                 Balance balance1 = new Balance();
                 balance1.setVisible(true);
+                frame.setVisible(false);
+
             }
         });
 
-        fastwithdrawal.addActionListener(new ActionListener() {
+
+        goBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Withdrawal_Options withdrawal_fast = new Withdrawal_Options();
-                withdrawal_fast.setVisible(true);
+                HomeScreen home1 = new HomeScreen();
+                home1.setVisible(true);
+                frame.setVisible(false);
+
+            }
+        });
+
+        close.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent close) {
+                HomeScreen home1 = new HomeScreen();
+                frame.setVisible(false);
             }
         });
 

@@ -47,7 +47,7 @@ public class HomeScreen extends JPanel {
         donations.setBounds(75, 525, 350, 100);
         balance.setBounds(1100, 525, 350, 100);
         fastWithdrawal.setBounds(1100,325,350,100);
-        close.setBounds(75, 700, 70, 70);
+        close.setBounds(1380, 700, 70, 70);
         background.setBounds(0, 0, 1980, 1080);
 
         //customize component
@@ -56,8 +56,9 @@ public class HomeScreen extends JPanel {
         donations.setFont(new java.awt.Font("Arial", Font.BOLD, 25));
         balance.setFont(new java.awt.Font("Arial", Font.BOLD, 25));
         fastWithdrawal.setFont(new java.awt.Font("Arial", Font.BOLD, 25));
+        name.setForeground(Color.decode("#C0C0C0"));
         background.setOpaque(true);
-        background.setBackground(Color.decode("#b9f1fa"));
+        background.setBackground(Color.decode("#086DCD"));
 
         //Actions
 
@@ -66,6 +67,7 @@ public class HomeScreen extends JPanel {
             public void actionPerformed(ActionEvent withdrawal) {
                 CashWithdrawl withdrawal1 = new CashWithdrawl();
                 withdrawal1.setVisible(true);
+                frame.setVisible(false);
             }
         });
 
@@ -74,6 +76,16 @@ public class HomeScreen extends JPanel {
             public void actionPerformed(ActionEvent withdrawal) {
                 Balance balance1 = new Balance();
                 balance1.setVisible(true);
+                frame.setVisible(false);
+
+            }
+        });
+
+        close.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent close) {
+                HomeScreen home1 = new HomeScreen();
+                frame.setVisible(false);
             }
         });
 
@@ -81,6 +93,7 @@ public class HomeScreen extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+
 
 
 

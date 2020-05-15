@@ -1,20 +1,13 @@
 import com.fazecast.jSerialComm.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Test_com {
     public static void main(String[] args) {
-        SerialPort ports[] = SerialPort.getCommPorts();
+        SerialPort port = SerialPort.getCommPort("COM5");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
-        System.out.println("Select port: ");
-        int i =1;
-        for(SerialPort port: ports){
-            System.out.println(i++ +  " " +port.getSystemPortName());
-        }
-
-        Scanner s = new Scanner(System.in);
-        int chosenport = s.nextInt();
-
-        SerialPort port = ports[chosenport -1];
         if(port.openPort()){
             System.out.println("Succesfully opened");
         }else{
@@ -26,6 +19,8 @@ public class Test_com {
 
         Scanner p = new Scanner(port.getInputStream());
         while(p.hasNextLine()){
+//            LocalDateTime ldt = LocalDateTime.now();
+//            System.out.println(dtf.format(ldt));
             System.out.println(p.nextLine());
         }
     }

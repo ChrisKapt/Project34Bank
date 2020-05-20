@@ -1,0 +1,16 @@
+NK-9UCI-01234567 (RFID krijgt)
+
+Arduino verwacht:
+-biljetten per biljetten (170) (01|00|01) aka 1 van 10 en 1 van 50 
+-datum & tijd (01-02-2020 13:40)
+-transNR (......) 9999 max  0001 1 NR
+-accountNR (..) laatste twee nummers van het account  (XXXX XXXX XX..)
+- 1 of 0 voor bon Wel of niet willen 1 is voor wel en 0 is voor niet. default is in code al 0.
+
+voorbeelden:
+01000101-02-2020 13:40....|..0 
+01000101-02-2020 13:40....|..1
+
+Hoe:
+method om te sturen met parameter dit kan ingevuld worden door database of GUI
+Die method zorgt ervoor dat het goed doorgestuurd wordt en de arduino ontvangt de gestuurde String

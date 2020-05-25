@@ -1,10 +1,10 @@
-import com.fazecast.jSerialComm.SerialPort;
-import com.fazecast.jSerialComm.SerialPortDataListener;
-import com.fazecast.jSerialComm.SerialPortEvent;
-
+import com.fazecast.jSerialComm.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
+
+//Version 2.0
+//Als er al een key ingedrukt is voordat de pas is gescant wordt de scan in verschillende delen gestuurd en kan je niks meer met deze informatie.
 
 public class COM2Test{
     SerialPort sp;
@@ -36,8 +36,8 @@ public class COM2Test{
 
                 //  MANIER 1:
                 //Scanner scant steeds is er input vanuit de port inputstream
-//                Scanner p = new Scanner(sp.getInputStream());
-                //Wanneer de pas wordt gestuurd zal deze zonder de while een 1 sturen
+                Scanner p = new Scanner(sp.getInputStream());
+////                Wanneer de pas wordt gestuurd zal deze zonder de while een 1 sturen
 //                while(p.hasNextLine()){
 //                    input = p.nextLine();
 ////                    System.out.println(input);
@@ -45,10 +45,10 @@ public class COM2Test{
 
                 //    MANIER 2:
                 //Andere manier dat ook werkt ligt eraan wat we willen gebruiken zijn beide even snel (de scanner is wel accurater (op basis van de keren die ik getest hebt))
-//                byte[] newData = new byte[sp.bytesAvailable()];
-//                sp.readBytes(newData,newData.length);
-//                input = new String(newData);
-//                System.out.println(input);
+                byte[] newData = new byte[sp.bytesAvailable()];
+                sp.readBytes(newData,newData.length);
+                input = new String(newData);
+                System.out.println(input);
             }
         });
     }
@@ -68,11 +68,14 @@ public class COM2Test{
     }
 
 
-    public String getInput(){
-        //is niet nodig maar weerhoud wel van krijgen van 0
-//        while(input == null){
-//            System.out.println("Empty");
-//        }
+    public String getInput() throws InterruptedException {
+//        is niet nodig maar weerhoud wel van krijgen van 0
+        while(input == null){
+            Thread.sleep(1000);
+            System.out.println("Empty");
+//            if(haveInput())
+//                break;
+        }
         return input;
     }
 
@@ -87,5 +90,16 @@ public class COM2Test{
         }else{
             System.out.println("Port was already closed");
         }
+    }
+
+    public void clearInput(){
+        input = null;
+    }
+
+    public boolean portOpen(){
+        if(sp.isOpen()){
+            return true;
+        }
+        return false;
     }
 }

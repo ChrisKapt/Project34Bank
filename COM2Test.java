@@ -4,11 +4,12 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 //Version 2.0
-//Als er al een key ingedrukt is voordat de pas is gescant wordt de scan in verschillende delen gestuurd en kan je niks meer met deze informatie.
+//Sturen doet zoals gedaan moet worden.
+//Ontvangen wordt gedaan zoals het gedaan moet worden.
 
 public class COM2Test{
     SerialPort sp;
-    String input;
+    String input = "";
 
     public COM2Test(String com){
         sp = SerialPort.getCommPort(com);
@@ -47,8 +48,8 @@ public class COM2Test{
                 //Andere manier dat ook werkt ligt eraan wat we willen gebruiken zijn beide even snel (de scanner is wel accurater (op basis van de keren die ik getest hebt))
                 byte[] newData = new byte[sp.bytesAvailable()];
                 sp.readBytes(newData,newData.length);
-                input = new String(newData);
-                System.out.println(input);
+                input += new String(newData);
+//                System.out.println(input);
             }
         });
     }
@@ -70,9 +71,9 @@ public class COM2Test{
 
     public String getInput() throws InterruptedException {
 //        is niet nodig maar weerhoud wel van krijgen van 0
-        while(input == null){
+        while(input == ""){
             Thread.sleep(1000);
-            System.out.println("Empty");
+//            System.out.println("Empty");
 //            if(haveInput())
 //                break;
         }
@@ -93,7 +94,7 @@ public class COM2Test{
     }
 
     public void clearInput(){
-        input = null;
+        input = "";
     }
 
     public boolean portOpen(){

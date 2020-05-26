@@ -1,11 +1,15 @@
 import com.fazecast.jSerialComm.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalTime;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-//Version 2.0
+//Version 2.5
 //Sturen doet zoals gedaan moet worden.
 //Ontvangen wordt gedaan zoals het gedaan moet worden.
+//Alle info wordt opgevangen en ! achter gezet zodat de arduino weet hier stoppen
 
 public class COM2Test{
     SerialPort sp;
@@ -37,7 +41,7 @@ public class COM2Test{
 
                 //  MANIER 1:
                 //Scanner scant steeds is er input vanuit de port inputstream
-                Scanner p = new Scanner(sp.getInputStream());
+//                Scanner p = new Scanner(sp.getInputStream());
 ////                Wanneer de pas wordt gestuurd zal deze zonder de while een 1 sturen
 //                while(p.hasNextLine()){
 //                    input = p.nextLine();
@@ -54,19 +58,22 @@ public class COM2Test{
         });
     }
 
-    public void sendString(String s) throws IOException, InterruptedException {
+public void sendString(String s) throws IOException, InterruptedException {
 
-        //send string
-        try {
-            Thread.sleep(2000);
-            s += "!"; //de arduino leest de string tot hij een ! tegenkomt
-            sp.getOutputStream().write(s.getBytes());
-            sp.getOutputStream().flush();
-            System.out.println("Sent String: " + s);
-            Thread.sleep(1000);
-        } catch (Exception e) {
-        }
+    //send string
+    try {
+        Thread.sleep(2000);
+//        s += time;
+        s += "!"; //de arduino leest de string tot hij een ! tegenkomt
+        System.out.println(s.length());
+        sp.getOutputStream().write(s.getBytes());
+        sp.getOutputStream().flush();
+        System.out.println("Sent String: " + s);
+        Thread.sleep(1000);
+    } catch (Exception e) {
     }
+
+}
 
 
     public String getInput() throws InterruptedException {

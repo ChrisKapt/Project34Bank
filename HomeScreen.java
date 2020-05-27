@@ -5,6 +5,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class HomeScreen extends JPanel {
@@ -25,7 +29,13 @@ public class HomeScreen extends JPanel {
         Icon iconClose = new ImageIcon("C:\\Users\\Noah_\\Downloads\\closeButton.png");
         JButton close = new JButton(iconClose);
         JLabel background = new JLabel();
-        //JFrame.dispose();
+        JLabel timeLabel = new JLabel("00:00:00");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("E, dd MMM yyyy");
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
+        JLabel dateLabel = new JLabel("Thu, 26 May");
+        java.util.Timer timer = new Timer("Timer");
+
+
 
         // adjust size and set layout
         frame.setPreferredSize(new Dimension(1920, 1080));
@@ -39,6 +49,8 @@ public class HomeScreen extends JPanel {
         frame.add(balance);
         frame.add(fastWithdrawal);
         frame.add(close);
+        frame.add(timeLabel);
+        frame.add(dateLabel);
         frame.add(background);
 
         // set component bounds (only needed by Absolute Positioning)
@@ -48,6 +60,8 @@ public class HomeScreen extends JPanel {
         balance.setBounds(1100, 525, 350, 100);
         fastWithdrawal.setBounds(1100,325,350,100);
         close.setBounds(1380, 700, 70, 70);
+        timeLabel.setBounds(1250, 100, 244, 54);
+        dateLabel.setBounds(1250, 140, 300, 54);
         background.setBounds(0, 0, 1980, 1080);
 
         //customize component
@@ -59,6 +73,24 @@ public class HomeScreen extends JPanel {
         name.setForeground(Color.decode("#C0C0C0"));
         background.setOpaque(true);
         background.setBackground(Color.decode("#086DCD"));
+        timeLabel.setForeground(Color.decode("#C0C0C0"));
+        timeLabel.setFont(new Font("Arial", Font.BOLD, 60));
+        dateLabel.setForeground(Color.decode("#C0C0C0"));
+        dateLabel.setFont(new Font("Arial", Font.BOLD, 30));
+
+        //Timer
+
+        TimerTask repeatedTask = new TimerTask() {
+            public void run() {
+                LocalDateTime localDateTime = LocalDateTime.now();
+
+                timeLabel.setText(localDateTime.format(timeFormat));
+                dateLabel.setText(localDateTime.format(dateFormat));
+            }
+        };
+
+        timer.scheduleAtFixedRate(repeatedTask, 0L, 1000L);
+
 
         //Actions
 

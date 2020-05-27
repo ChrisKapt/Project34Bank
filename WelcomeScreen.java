@@ -5,8 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.AttributedCharacterIterator;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.fazecast.jSerialComm.*;
 
@@ -28,6 +32,13 @@ public class WelcomeScreen extends JPanel {
         JLabel name = new JLabel("9ucci");
         JButton buttonOK = new JButton("OK");
         JLabel labelPassword = new JLabel("Enter password:");
+        JLabel timeLabel = new JLabel("00:00:00");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("E, dd MMM yyyy");
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
+        JLabel dateLabel = new JLabel("Thu, 26 May");
+        java.util.Timer timer = new Timer("Timer");
+
+
 
         // adjust size and set layout
         frame.setPreferredSize(new Dimension(1920, 1080));
@@ -38,6 +49,8 @@ public class WelcomeScreen extends JPanel {
         frame.add(labelPassword);
         frame.add(passwordField);
         frame.add(buttonOK);
+        frame.add(timeLabel);
+        frame.add(dateLabel);
         frame.add(background);
 
 
@@ -48,6 +61,8 @@ public class WelcomeScreen extends JPanel {
         buttonOK.setBounds(725, 550, 100, 50);
         name.setBounds(650, 100, 500, 80);
         labelPassword.setBounds(700, 200, 300, 300);
+        timeLabel.setBounds(1250, 100, 244, 54);
+        dateLabel.setBounds(1250, 140, 300, 54);
 
 
 
@@ -58,6 +73,24 @@ public class WelcomeScreen extends JPanel {
         passwordField.setFont(new java.awt.Font("Arial", Font.BOLD, 20));
         name.setForeground(Color.decode("#C0C0C0"));
         labelPassword.setForeground(Color.decode("#C0C0C0"));
+        timeLabel.setForeground(Color.decode("#C0C0C0"));
+        timeLabel.setFont(new Font("Arial", Font.BOLD, 60));
+        dateLabel.setForeground(Color.decode("#C0C0C0"));
+        dateLabel.setFont(new Font("Arial", Font.BOLD, 30));
+
+        //Timer
+
+        TimerTask repeatedTask = new TimerTask() {
+            public void run() {
+                LocalDateTime localDateTime = LocalDateTime.now();
+
+                timeLabel.setText(localDateTime.format(timeFormat));
+                dateLabel.setText(localDateTime.format(dateFormat));
+            }
+        };
+
+        timer.scheduleAtFixedRate(repeatedTask, 0L, 1000L);
+
 
 
         //OKButton 

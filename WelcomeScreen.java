@@ -12,8 +12,6 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.fazecast.jSerialComm.*;
-
 
 public class WelcomeScreen extends JPanel {
     /**

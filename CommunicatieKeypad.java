@@ -1,4 +1,4 @@
-package Gui;
+package GUI;
 
 import java.io.IOException;
 import com.fazecast.jSerialComm.*;
@@ -9,7 +9,7 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class CommunicatieKeypad extends JPanel {
+public class CommunicatieKeypad extends JPanel{
     SerialPort sp;
     String input = "";
 
@@ -102,26 +102,71 @@ public class CommunicatieKeypad extends JPanel {
         return false;
     }
 
-    public void hotkeyKeypad(){
-      //  if(input == "A"){
-      //
-      //  }
+    //Maak klasse aan in klas
+    //if(naam.haveInput){   Checkt of er input mocht dit niet het geval zijn gaat de klok ongestoord door
+    //try{
+    //com.hotkeyKeypad(frame);
+    //}Catch(InterruptedException e){
+    //e.printStackTrace();
+    //}
 
-        if(input == "B"){
-            Balance balance = new Balance();
+    public void hotkeyKeypad(JFrame frame) throws InterruptedException {
+        String frameIncome = frame.getTitle();;
+        Balance balance;
+        Withdrawal_Options options;
+//      FastWithdraw fast;
+        CashWithdrawl cashWithdrawl;
+        HomeScreen home;
+        String key = getInput();
+        System.out.println(frameIncome);
+
+        System.out.println(key);
+        if (frameIncome.equalsIgnoreCase("cashWithdrawal")) {
+            //        if(key.equalsIgnoreCase("A")){
+//            fast = new Fastwithdraw();
+//            fast.setVisible(true);
+//            frame.setVisible(false);
+//        }
+
+            if (key.equalsIgnoreCase("B")) {
+                balance = new Balance();
+                balance.setVisible(true);
+//                frame.setVisible(false);
+            }
+
+            if (key.equalsIgnoreCase("C")) {
+                options = new Withdrawal_Options();
+                options.setVisible(true);
+//            frame.setVisible(false);
+            }
         }
-
-        if(input == "C"){
-            CashWithdrawl cashWithdrawl = new CashWithdrawl();
+        if (frameIncome.equalsIgnoreCase("homescreen")) {
+            if (key.equalsIgnoreCase("C")) {
+                cashWithdrawl = new CashWithdrawl();
+                cashWithdrawl.setVisible(true);
+            }
+            if(key.equalsIgnoreCase("D")){
+                balance = new Balance();
+                balance.setVisible(true);
+            }
         }
+            if (key.equalsIgnoreCase("#")) {
+                home = new HomeScreen();
+                home.setVisible(true);
+//                frame.setVisible(false);
+//            System.out.println("homeScreen");
+            }
+            frame.setVisible(false);
+//
 
-        if(input == "D"){
-            HomeScreen homeScreen = new HomeScreen();
-        }
-
-
-
-
-
+        clearInput();
     }
+
+    public boolean haveInput(){
+        if (input == "") {
+            return false;
+        }
+        return true;
+    }
+
 }

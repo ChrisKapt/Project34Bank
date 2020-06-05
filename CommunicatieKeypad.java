@@ -6,6 +6,7 @@ import Database.SelectApp;
 import com.fazecast.jSerialComm.*;
 import javax.swing.*;
 import java.io.InputStream;
+import java.rmi.ServerError;
 import java.time.LocalTime;
 import java.util.Scanner;
 import java.time.LocalDateTime;
@@ -15,6 +16,8 @@ public class CommunicatieKeypad extends JPanel{
     SerialPort sp;
     String input = "";
     String invoer = "";
+    String key = "";
+    String[] keys = {"1","2","3","4","5","6","7","8","9","0"};
 
 
     public CommunicatieKeypad(String com ){
@@ -124,7 +127,7 @@ public class CommunicatieKeypad extends JPanel{
 //      FastWithdraw fast;
         CashWithdrawl cashWithdrawl;
         HomeScreen home;
-        String key = getInput();
+        key = getInput();
         System.out.println(frameIncome);
 
         System.out.println(key);
@@ -224,13 +227,13 @@ public class CommunicatieKeypad extends JPanel{
             }
         }
 
-        if(frameIncome.equalsIgnoreCase("introscreen")) {
-            if(key.equalsIgnoreCase("D")){
-                closePort();
-                 welcome = new WelcomeScreen();
-                welcome.setVisible(true);
-                frame.setVisible(false);
-            }
+//        if(frameIncome.equalsIgnoreCase("introscreen")) {
+//            if(key.equalsIgnoreCase("D")){
+//                closePort();
+//                 welcome = new WelcomeScreen();
+//                welcome.setVisible(true);
+//                frame.setVisible(false);
+//            }
 //            if (input.length() == 16) {
                 //check met database
                 //if(true){
@@ -244,7 +247,7 @@ public class CommunicatieKeypad extends JPanel{
                 //frame.setVisible(false);
 //                }
 //            }
-            }
+//            }
 
 //        if(frameIncome.equalsIgnoreCase("welcomescreen")){
 //            if(key.equalsIgnoreCase("D")){
@@ -287,48 +290,80 @@ public class CommunicatieKeypad extends JPanel{
         clearInput();
     }
 
-//    public void inlog(JFrame frame, String user) throws InterruptedException {
-//       String currentUser = user;
-//       String password = invoer;
-//        SelectApp pwSelect = new SelectApp();
-////        String correctPass = pwSelect.selectPin(user);
-//        String correctPass = "0001";
-//            System.out.println(invoer);
-//            if (password.equals(correctPass)) {
-//                closePort();
-//                HomeScreen home = new HomeScreen();
-//                home.setVisible(true);
-//                frame.setVisible(false);
-//            } else {
-//                System.err.println("False");
-//                invoer = "";
-//            invoer += input;
-//            clearInput();
-//            System.out.println(invoer);
-//        }
+    public boolean rfidCheck(){
+        if(input.length() > 10){
+            return true;
+        }
+        return false;
+    }
 
-        //        HomeScreen home;
-//        String key = getInput();
-//        if(!key.equalsIgnoreCase("A")||!key.equalsIgnoreCase("B")||!key.equalsIgnoreCase("C")||!key.equalsIgnoreCase("D")){
-//            invoer = invoer+ key;
-//            //Laat zien op gui dat er een cijfer bijkomt.
-//        }
-//        if(key.equalsIgnoreCase("B")){
-//            //Check bij database
-//            if(invoer == pincode){
-//                closePort();
-//                home = new HomeScreen();
-//                home.setVisible(true);
+    public void rfidLog(JFrame frame) throws InterruptedException {
+        SelectApp rfidSelect = new SelectApp();
+        String rfid = getInput();
+        String RFIDIn = "NK-GUCI-12345678";
+//        System.out.println(rfid);
+            System.err.println("Checking");
+            System.out.println(rfid);
+        System.err.println(RFIDIn);
+            if (rfid.equals(RFIDIn)) {
+                System.err.println("Correct pass");
+                closePort();
+                WelcomeScreen welcome = new WelcomeScreen(rfid);
+                welcome.setVisible(true);
+                frame.setVisible(false);
+        }
+        System.err.println("NOT FOUND");
+        clearInput();
+//        String[] rfids = rfidSelect.selectRFID();
+//        for(int i=0; i<10 ; i++){
+//            if(rfid.equals(rfids[i])){
+//                System.out.println("goede RFID gevonden");
+//                WelcomeScreen welcome = new WelcomeScreen(rfid);
+//                welcome.setVisible(true);
 //                frame.setVisible(false);
-//                invoer = 0;
-//            }else{
-//                System.err.println("ERROR");
-//                invoer = 0;
+//                break;
 //            }
 //        }
-//        clearInput();
-//        System.out.println(invoer);
-//    }
+    }
+
+    public void inlog(JFrame frame, String user) throws InterruptedException {
+        key = getInput();
+        String currentUser = user;
+        String password = invoer;
+        if(isCijfer(key)) {
+            invoer += input;
+            clearInput();
+        }
+//        SelectApp pwSelect = new SelectApp();
+//        String correctPass = pwSelect.selectPin(currentUser);
+        String correctPass = "0001";
+        System.out.println(invoer);
+        if(key.equalsIgnoreCase("B")) {
+//            if (password.equals(correctPass)) {
+            if (password.equalsIgnoreCase(correctPass)) {
+                closePort();
+                HomeScreen home = new HomeScreen();
+                home.setVisible(true);
+                frame.setVisible(false);
+            } else {
+                System.err.println("False");
+                invoer = "";
+                return;
+            }
+        }
+        clearInput();
+            System.out.println(invoer);
+        }
+
+        public boolean isCijfer(String key){
+            for (String keyInput :keys) {
+                if(key.equalsIgnoreCase(keyInput)){
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
     public boolean haveInput(){
         if (input == "") {
@@ -336,5 +371,7 @@ public class CommunicatieKeypad extends JPanel{
         }
         return true;
     }
+
+
 
 }

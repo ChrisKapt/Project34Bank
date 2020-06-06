@@ -57,6 +57,7 @@ public class CommunicatieKeypad extends JPanel{
         });
     }
 
+    //String die gestuurd moet worden is transNR+accountNR+BILL10+BILL20+BILL50+printReceipt+date
     public void sendString(String s) throws IOException, InterruptedException {
 
         //send string
@@ -372,6 +373,51 @@ public class CommunicatieKeypad extends JPanel{
         return true;
     }
 
+    public void fastWithdrawal(String user) throws InterruptedException {
+        key = getInput();
+        String pinUser = user.substring(17,19);
+        System.out.println(pinUser);
+        if(key.equalsIgnoreCase("A")){
+//            sendString("0001"+pinUser+"0001011"+datum);
+            closePort();
+        }else if(key.equalsIgnoreCase("B")){
+//            sendString("0001"+pinUser+"0200011"+datum);
+            closePort();
+        }
+        clearInput();
+    }
+
+    //fast
+    //error
+    //thanks
+    //custom
+    //alles wat ingetikt wordt bij pinnen en custom te zien is.  !!!!!!!!!!!!
+
+
+    public void customWithdrawal(String user, int amount) throws InterruptedException {
+        key = getInput();
+        String pinUser = user.substring(17,19);
+        System.out.println(pinUser);
+        String keuze1;
+        int BILL10;
+        int BILL20;
+        int BILL50;
+        //Logica om keuzes te geven
+        //bv 170 - 50 = 120 - 100 = 20 - 20  (3x50 en 1x20)
+        //bv 20 - 50 = -30 dus gaat niet probeert die - 20 te doen
+        //while(amount > 9){
+        //if(amount> 50){
+        //  BILL50++;
+        //  amount -= 50;
+        //}else if(amount> 20 && amount < 50){
+        //  BILL20++;
+        //  amount-= 20;
+        //}else if(amount> 10 && amount <20){
+        //  BILL10++;
+        //  amount-= 10;
+        //}
+//        keuze1 = BILL10+BILL20+BILL50;
+    }
 
 
 }

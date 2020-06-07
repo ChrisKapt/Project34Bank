@@ -1,31 +1,22 @@
 package GUI;
 
-
-import Database.SelectApp;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Timer;
 import java.util.TimerTask;
 
+public class CustomWithdrawal extends JPanel {
+    private String amount;
+    private int bill10,bill20,bill50;
 
-public class Balance extends JPanel {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
-    Balance(String user) {
+    public CustomWithdrawal(String user) {
         // construct components
-        JFrame frame = new JFrame("Balance");
+        JFrame frame = new JFrame("Custom");
         JLabel name = new JLabel("9ucci");
-        SelectApp balance = new SelectApp();
-        JLabel yourBalance = new JLabel("Balance: W"+balance.selectSaldo(user));
+        JLabel custom = new JLabel(amount);
+        JLabel enter = new JLabel("Enter a custom amount:");
         Icon icon = new ImageIcon("C:\\Users\\Noah_\\Downloads\\arrow.png");
         JButton goBack = new JButton(icon);
         Icon iconClose = new ImageIcon("C:\\Users\\Noah_\\Downloads\\closeButton.png");
@@ -37,16 +28,17 @@ public class Balance extends JPanel {
         JLabel dateLabel = new JLabel("Thu, 26 May");
         java.util.Timer timer = new Timer("Timer");
         CommunicatieKeypad com = new CommunicatieKeypad("COM5");
-
+        amount = "";
 
         // adjust size and set layout
         frame.setPreferredSize(new Dimension(1920, 1080));
         setLayout(null);
 
         // add components
-        frame.add(yourBalance);
-        frame.add(goBack);
+        frame.add(custom);
+        frame.add(enter);
         frame.add(close);
+        frame.add(goBack);
         frame.add(name);
         frame.add(timeLabel);
         frame.add(dateLabel);
@@ -54,8 +46,9 @@ public class Balance extends JPanel {
 
         // set component bounds (only needed by Absolute Positioning)
         name.setBounds(650, 100, 500, 80);
-        yourBalance.setBounds(550, 400, 500, 50);
+        enter.setBounds(450,360,2000,80);
         background.setBounds(0, 0, 1980, 1080);
+        custom.setBounds(725,450,100,60);
         goBack.setBounds(75, 700, 70, 70);
         close.setBounds(1380, 700, 70, 70);
         timeLabel.setBounds(1250, 100, 244, 54);
@@ -64,15 +57,17 @@ public class Balance extends JPanel {
 
         //costumize component
         name.setFont(new java.awt.Font("Arial", Font.BOLD, 100));
-        yourBalance.setFont(new java.awt.Font("Arial", Font.BOLD, 50));
+        name.setForeground(Color.decode("#C0C0C0"));
+        enter.setFont(new java.awt.Font("Arial", Font.BOLD, 50));
+        enter.setForeground(Color.decode("#C0C0C0"));
+        custom.setFont(new java.awt.Font("Arial", Font.BOLD, 35));
+        custom.setForeground(Color.decode("#C0C0C0"));
         background.setOpaque(true);
         background.setBackground(Color.decode("#086DCD"));
-        name.setForeground(Color.decode("#C0C0C0"));
         timeLabel.setForeground(Color.decode("#C0C0C0"));
         timeLabel.setFont(new Font("Arial", Font.BOLD, 60));
         dateLabel.setForeground(Color.decode("#C0C0C0"));
         dateLabel.setFont(new Font("Arial", Font.BOLD, 30));
-
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -86,44 +81,38 @@ public class Balance extends JPanel {
 
                 timeLabel.setText(localDateTime.format(timeFormat));
                 dateLabel.setText(localDateTime.format(dateFormat));
-                if(com.haveInput()) {
+                if (com.haveInput()) {
                     try {
-                        com.hotkeyKeypad(frame,user);
+//                        custom.setText(amount);
+                        amount = com.keys(amount, "Custom");
+                        custom.setText(amount);
+                        if(com.getInput().equalsIgnoreCase("B")){
+                            int bedrag = Integer.parseInt(amount);
+                            if(bedrag% 10 == 0 && bedrag<=250 && bedrag>= 10) {
+                                com.closePort();
+                                Withdrawal_Options options = new Withdrawal_Options(user,bedrag);
+                                options.setVisible(true);
+                                frame.setVisible(false);
+                            }else if( com.getInput().equalsIgnoreCase("#")|| com.getInput().equalsIgnoreCase("*")){
+                                com.hotkeyKeypad(frame, user);
+                            }else{
+                                com.closePort();
+                                ErrorScreen error = new ErrorScreen("Not okay", user);
+                                error.setVisible(true);
+                                frame.setVisible(false);
+                            }
+                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-
             }
         };
 
         timer.scheduleAtFixedRate(repeatedTask, 0L, 1000L);
-
-
-        //Actions
-//        goBack.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                CashWithdrawl withdrawl1 = new CashWithdrawl();
-//                withdrawl1.setVisible(true);
-//                frame.setVisible(false);
-//
-//            }
-//        });
-//
-//        close.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent close) {
-//                HomeScreen home1 = new HomeScreen();
-//                frame.setVisible(false);
-//            }
-//        });
-//
-//
-//
     }
 
-//    public static void main(final String[] args) {
-//        new Balance();
-//    }
+    public static void main(String[] args) {
+        new CustomWithdrawal("12345678");
+    }
 }

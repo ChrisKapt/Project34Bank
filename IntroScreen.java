@@ -1,4 +1,4 @@
-package Gui;
+package GUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class IntroScreen {
+public class IntroScreen extends JPanel{
     JFrame frame = new JFrame("IntroScreen");
 
     public IntroScreen() {
@@ -27,6 +27,7 @@ public class IntroScreen {
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
         JLabel dateLabel = new JLabel("Thu, 26 May");
         Timer timer = new Timer("Timer");
+        CommunicatieKeypad com = new CommunicatieKeypad("COM5");
 
 
 
@@ -87,42 +88,49 @@ public class IntroScreen {
 
                 timeLabel.setText(localDateTime.format(timeFormat));
                 dateLabel.setText(localDateTime.format(dateFormat));
+                if(com.rfidCheck()) {
+                    try {
+                        com.rfidLog(frame);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         };
 
         timer.scheduleAtFixedRate(repeatedTask, 0L, 1000L);
 
         //Actions
-
-        background.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent start) {
-                WelcomeScreen welcome1 = new WelcomeScreen();
-                welcome1.setVisible(true);
-                frame.setVisible(false);
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent mouseEvent) {
-
-            }
-        });
+//
+//        background.addMouseListener(new MouseListener() {
+//            @Override
+//            public void mouseClicked(MouseEvent start) {
+//                WelcomeScreen welcome1 = new WelcomeScreen();
+//                welcome1.setVisible(true);
+//                frame.setVisible(false);
+//
+//            }
+//
+//            @Override
+//            public void mousePressed(MouseEvent mouseEvent) {
+//
+//            }
+//
+//            @Override
+//            public void mouseReleased(MouseEvent mouseEvent) {
+//
+//            }
+//
+//            @Override
+//            public void mouseEntered(MouseEvent mouseEvent) {
+//
+//            }
+//
+//            @Override
+//            public void mouseExited(MouseEvent mouseEvent) {
+//
+//            }
+//        });
 
 
     }

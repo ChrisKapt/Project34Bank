@@ -1,4 +1,4 @@
-package Gui;
+package GUI;
 
 
 import javax.swing.*;
@@ -18,8 +18,7 @@ public class CashWithdrawl extends JPanel {
      */
     private static final long serialVersionUID = 1L;
 
-
-    CashWithdrawl() {
+    CashWithdrawl(String user){
         // construct components
         JFrame frame = new JFrame("CashWithdrawal");
         JLabel name = new JLabel("9ucci");
@@ -36,7 +35,7 @@ public class CashWithdrawl extends JPanel {
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
         JLabel dateLabel = new JLabel("Thu, 26 May");
         java.util.Timer timer = new Timer("Timer");
-
+        CommunicatieKeypad com = new CommunicatieKeypad("COM5");
 
 
         // adjust size and set layout
@@ -57,9 +56,9 @@ public class CashWithdrawl extends JPanel {
         // set component bounds (only needed by Absolute Positioning)
         name.setBounds(650, 100, 500, 80);
         background.setBounds(0, 0, 1980, 1080);;
-        fastwithdrawal.setBounds(75, 525, 350, 100);
+        fastwithdrawal.setBounds(75, 350, 350, 100);
         withdrawalCash.setBounds(1100, 525, 350, 100);
-        balance.setBounds(75, 350, 350, 100);
+        balance.setBounds(75, 525, 350, 100);
         goBack.setBounds(75, 700, 70, 70);
         close.setBounds(1380, 700, 70, 70);
         timeLabel.setBounds(1250, 100, 244, 54);
@@ -91,6 +90,13 @@ public class CashWithdrawl extends JPanel {
 
                 timeLabel.setText(localDateTime.format(timeFormat));
                 dateLabel.setText(localDateTime.format(dateFormat));
+                if(com.haveInput()) {
+                    try {
+                        com.hotkeyKeypad(frame,user);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         };
 
@@ -99,48 +105,53 @@ public class CashWithdrawl extends JPanel {
 
         //Actions
 
-        withdrawalCash.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent withdrawal) {
-                Withdrawal_Options withdrawal_options1 = new Withdrawal_Options();
-                withdrawal_options1.setVisible(true);
-                frame.setVisible(false);
-
-            }
-        });
-
-        balance.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent withdrawal) {
-                Balance balance1 = new Balance();
-                balance1.setVisible(true);
-                frame.setVisible(false);
-
-            }
-        });
-
-
-        goBack.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                HomeScreen home1 = new HomeScreen();
-                home1.setVisible(true);
-                frame.setVisible(false);
-
-            }
-        });
-
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent close) {
-                HomeScreen home1 = new HomeScreen();
-                frame.setVisible(false);
-            }
-        });
+//        if(input.equalsIgnoreCase("A")){
+//            Withdrawal_Options options = new Withdrawal_Options();
+//            options.setVisible(true);
+//            frame.setVisible(false);
+//        }
+//        withdrawalCash.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent withdrawal) {
+//                Withdrawal_Options withdrawal_options1 = new Withdrawal_Options();
+//                withdrawal_options1.setVisible(true);
+//                frame.setVisible(false);
+//
+//            }
+//        });
+//
+//        balance.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent withdrawal) {
+//                Balance balance1 = new Balance();
+//                balance1.setVisible(true);
+//                frame.setVisible(false);
+//
+//            }
+//        });
+//
+//
+//        goBack.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                HomeScreen home1 = new HomeScreen();
+//                home1.setVisible(true);
+//                frame.setVisible(false);
+//
+//            }
+//        });
+//
+//        close.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent close) {
+//                HomeScreen home1 = new HomeScreen();
+//                frame.setVisible(false);
+//            }
+//        });
 
     }
 
-    public static void main(final String[] args) {
-        new CashWithdrawl();
-    }
+//    public static void main(final String[] args) {
+//        new CashWithdrawl();
+//    }
 }

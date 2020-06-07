@@ -1,35 +1,25 @@
 package GUI;
 
-
-import Database.SelectApp;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
-public class Balance extends JPanel {
-
-    /**
-     *
-     */
+public class FastWithdrawal extends JPanel{
     private static final long serialVersionUID = 1L;
 
-    Balance(String user) {
-        // construct components
-        JFrame frame = new JFrame("Balance");
+    public FastWithdrawal(String user) {
+        JFrame frame = new JFrame("FastWithdrawal");
         JLabel name = new JLabel("9ucci");
-        SelectApp balance = new SelectApp();
-        JLabel yourBalance = new JLabel("Balance: W"+balance.selectSaldo(user));
-        Icon icon = new ImageIcon("C:\\Users\\Noah_\\Downloads\\arrow.png");
-        JButton goBack = new JButton(icon);
-        Icon iconClose = new ImageIcon("C:\\Users\\Noah_\\Downloads\\closeButton.png");
-        JButton close = new JButton(iconClose);
+        JButton biljet20 = new JButton("1 X 20 & 1 X 50");
+        JButton biljet50 = new JButton("2 X 10 & 1 X 50");
+//        Icon icon = new ImageIcon("C:\\Users\\Noah_\\Downloads\\arrow.png");
+        JButton goBack = new JButton("Back");
+//        Icon iconClose = new ImageIcon("C:\\Users\\Noah_\\Downloads\\closeButton.png");
+        JButton close = new JButton("Cancel");
         JLabel background = new JLabel();
         JLabel timeLabel = new JLabel("00:00:00");
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("E, dd MMM yyyy");
@@ -38,15 +28,15 @@ public class Balance extends JPanel {
         java.util.Timer timer = new Timer("Timer");
         CommunicatieKeypad com = new CommunicatieKeypad("COM5");
 
-
         // adjust size and set layout
         frame.setPreferredSize(new Dimension(1920, 1080));
         setLayout(null);
 
         // add components
-        frame.add(yourBalance);
-        frame.add(goBack);
+        frame.add(biljet20);
+        frame.add(biljet50);
         frame.add(close);
+        frame.add(goBack);
         frame.add(name);
         frame.add(timeLabel);
         frame.add(dateLabel);
@@ -54,25 +44,26 @@ public class Balance extends JPanel {
 
         // set component bounds (only needed by Absolute Positioning)
         name.setBounds(650, 100, 500, 80);
-        yourBalance.setBounds(550, 400, 500, 50);
         background.setBounds(0, 0, 1980, 1080);
+        ;
+        biljet20.setBounds(75, 400, 500, 100);
+        biljet50.setBounds(1100, 400, 500, 100);
         goBack.setBounds(75, 700, 70, 70);
         close.setBounds(1380, 700, 70, 70);
         timeLabel.setBounds(1250, 100, 244, 54);
         dateLabel.setBounds(1250, 140, 300, 54);
 
-
         //costumize component
         name.setFont(new java.awt.Font("Arial", Font.BOLD, 100));
-        yourBalance.setFont(new java.awt.Font("Arial", Font.BOLD, 50));
+        biljet20.setFont(new java.awt.Font("Arial", Font.BOLD, 25));
+        biljet50.setFont(new java.awt.Font("Arial", Font.BOLD, 25));
+        name.setForeground(Color.decode("#C0C0C0"));
         background.setOpaque(true);
         background.setBackground(Color.decode("#086DCD"));
-        name.setForeground(Color.decode("#C0C0C0"));
         timeLabel.setForeground(Color.decode("#C0C0C0"));
         timeLabel.setFont(new Font("Arial", Font.BOLD, 60));
         dateLabel.setForeground(Color.decode("#C0C0C0"));
         dateLabel.setFont(new Font("Arial", Font.BOLD, 30));
-
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -86,44 +77,35 @@ public class Balance extends JPanel {
 
                 timeLabel.setText(localDateTime.format(timeFormat));
                 dateLabel.setText(localDateTime.format(dateFormat));
-                if(com.haveInput()) {
+                if (com.haveInput()) {
                     try {
-                        com.hotkeyKeypad(frame,user);
+//                        com.fastWithdrawal(frame, user);
+                        if(com.getInput().equalsIgnoreCase("A")) {
+                            com.closePort();
+                            Bon bon = new Bon(user, 0, 1, 1);
+                            bon.setVisible(true);
+                            frame.setVisible(false);
+                        }
+                        else if(com.getInput().equalsIgnoreCase("B")){
+                            com.closePort();
+                            Bon bon = new Bon(user, 2,0,1);
+                            bon.setVisible(true);
+                            frame.setVisible(false);
+                        }else if( com.getInput().equalsIgnoreCase("#")|| com.getInput().equalsIgnoreCase("*")){
+                            com.hotkeyKeypad(frame, user);
+                        }
+                        com.clearInput();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-
             }
         };
 
         timer.scheduleAtFixedRate(repeatedTask, 0L, 1000L);
-
-
-        //Actions
-//        goBack.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                CashWithdrawl withdrawl1 = new CashWithdrawl();
-//                withdrawl1.setVisible(true);
-//                frame.setVisible(false);
-//
-//            }
-//        });
-//
-//        close.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent close) {
-//                HomeScreen home1 = new HomeScreen();
-//                frame.setVisible(false);
-//            }
-//        });
-//
-//
-//
     }
 
-//    public static void main(final String[] args) {
-//        new Balance();
+//    public static void main(String[] args) {
+//        new FastWithdrawal("12345678");
 //    }
 }

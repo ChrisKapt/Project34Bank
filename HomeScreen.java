@@ -1,5 +1,4 @@
-package Gui;
-
+package GUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,12 +17,11 @@ public class HomeScreen extends JPanel {
      */
     private static final long serialVersionUID = 1L;
 
-    HomeScreen() {
+    HomeScreen(String user) {
         // construct components
         JFrame frame = new JFrame("HomeScreen");
         JButton withdrawal = new JButton("Cash Withdrawal");
         JLabel name = new JLabel("9ucci");
-        JButton donations = new JButton("Donations");
         JButton balance = new JButton("Balance");
         JButton fastWithdrawal = new JButton("Fast Withdrawal €70");
         Icon iconClose = new ImageIcon("C:\\Users\\Noah_\\Downloads\\closeButton.png");
@@ -34,6 +32,7 @@ public class HomeScreen extends JPanel {
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
         JLabel dateLabel = new JLabel("Thu, 26 May");
         java.util.Timer timer = new Timer("Timer");
+        CommunicatieKeypad com = new CommunicatieKeypad("COM5");
 
 
 
@@ -45,7 +44,6 @@ public class HomeScreen extends JPanel {
 
         frame.add(withdrawal);
         frame.add(name);
-        frame.add(donations);
         frame.add(balance);
         frame.add(fastWithdrawal);
         frame.add(close);
@@ -56,8 +54,7 @@ public class HomeScreen extends JPanel {
         // set component bounds (only needed by Absolute Positioning)
         withdrawal.setBounds(75, 350, 350, 100);
         name.setBounds(650, 100, 500, 80);
-        donations.setBounds(75, 525, 350, 100);
-        balance.setBounds(1100, 525, 350, 100);
+        balance.setBounds(75, 525, 350, 100);
         fastWithdrawal.setBounds(1100,325,350,100);
         close.setBounds(1380, 700, 70, 70);
         timeLabel.setBounds(1250, 100, 244, 54);
@@ -67,7 +64,7 @@ public class HomeScreen extends JPanel {
         //customize component
         withdrawal.setFont(new java.awt.Font("Arial", Font.BOLD, 25));
         name.setFont(new java.awt.Font("Arial", Font.BOLD, 100));
-        donations.setFont(new java.awt.Font("Arial", Font.BOLD, 25));
+
         balance.setFont(new java.awt.Font("Arial", Font.BOLD, 25));
         fastWithdrawal.setFont(new java.awt.Font("Arial", Font.BOLD, 25));
         name.setForeground(Color.decode("#C0C0C0"));
@@ -86,6 +83,13 @@ public class HomeScreen extends JPanel {
 
                 timeLabel.setText(localDateTime.format(timeFormat));
                 dateLabel.setText(localDateTime.format(dateFormat));
+                if(com.haveInput()){
+                    try{
+                        com.hotkeyKeypad(frame,user);
+                    }catch(InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }
             }
         };
 
@@ -94,32 +98,32 @@ public class HomeScreen extends JPanel {
 
         //Actions
 
-        withdrawal.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent withdrawal) {
-                CashWithdrawl withdrawal1 = new CashWithdrawl();
-                withdrawal1.setVisible(true);
-                frame.setVisible(false);
-            }
-        });
-
-        balance.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent withdrawal) {
-                Balance balance1 = new Balance();
-                balance1.setVisible(true);
-                frame.setVisible(false);
-
-            }
-        });
-
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent close) {
-                HomeScreen home1 = new HomeScreen();
-                frame.setVisible(false);
-            }
-        });
+//        withdrawal.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent withdrawal) {
+//                CashWithdrawl withdrawal1 = new CashWithdrawl();
+//                withdrawal1.setVisible(true);
+//                frame.setVisible(false);
+//            }
+//        });
+//
+//        balance.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent withdrawal) {
+//                Balance balance1 = new Balance();
+//                balance1.setVisible(true);
+//                frame.setVisible(false);
+//
+//            }
+//        });
+//
+//        close.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent close) {
+//                HomeScreen home1 = new HomeScreen();
+//                frame.setVisible(false);
+//            }
+//        });
 
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -131,7 +135,7 @@ public class HomeScreen extends JPanel {
 
     }
 
-    public static void main(final String[] args) {
-        new HomeScreen();
-    }
+//    public static void main(final String[] args) {
+//        new HomeScreen();
+//    }
 }
